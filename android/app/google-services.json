@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "948046027146",
+    "firebase_url": "https://pickit-challenge-default-rtdb.firebaseio.com",
+    "project_id": "pickit-challenge",
+    "storage_bucket": "pickit-challenge.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:948046027146:android:d25f1ac52b2b2a5db3d073",
+        "android_client_info": {
+          "package_name": "com.example.pickit_challenge"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "948046027146-76ktu4ilq4ufiucpilcobltpusqnda0k.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCQu8tloceGbz2zGEXKycxndbXsI12pVuo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "948046027146-76ktu4ilq4ufiucpilcobltpusqnda0k.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
