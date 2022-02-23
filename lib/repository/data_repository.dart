@@ -3,7 +3,8 @@ import 'dart:convert';
 import 'package:pickit_challenge/models/models.dart';
 import 'package:pickit_challenge/network/data_provider.dart';
 
-/// El repositorio es un intermediadio ente el state manager y la api
+/// El repositorio es un intermediadio ente la api y el state
+/// decide si tomar los datos desde el backend o localmente
 
 class DataRepository {
   // api provider instance

@@ -1,35 +1,45 @@
 class CustomException implements Exception {
-  final _message;
-  final _prefix;
 
-  CustomException([this._message, this._prefix]);
+  final String? _message;
+  final String? _messagePrefix;
+  final int? _code;
+
+  CustomException([this._messagePrefix, this._message, this._code]); // [] = optionals and POSITIONALS params
+
+  String? get message => _message;
+  String? get prefix => _messagePrefix;
+  int? get code => _code;
 
   @override
   String toString() {
-    return "$_prefix $_message";
+    return "$_messagePrefix $_message $_code";
   }
 }
 
-class UnspecifiedException extends CustomException {
-  UnspecifiedException([message]) : super(message, "No hay más información disponible sobre este error $message.");
-}
-
-class BadRequestException extends CustomException {
-  BadRequestException([message])
-      : super(
-            message, "(Código de error HTTP = 400) Los parámetros de la solicitud no eran válidos. Una extensión del tipo google.rpc.BadRequest se devuelve para especificar qué campo no era válida.");
-}
-
-class UnregisteredException extends CustomException {
-  UnregisteredException([message])
-      : super(message,
-            "(Código de error HTTP = 404) Se anuló el registro de la instancia de la aplicación en FCM. Por lo general, esto significa que el token utilizado ya no es válido y se debe utilizar uno nuevo.");
-}
-
-class InternalException extends CustomException {
-  InternalException([message]) : super(message, "(Código de error HTTP = 500) Ocurrió un error interno desconocido.");
-}
+////////////////////////////////////////////
+/// EXCEPTIONS ///
+////////////////////////////////////////////
 
 class FetchDataException extends CustomException {
-  FetchDataException([message]) : super(message, "No hay conexion a internet");
+  FetchDataException({message}) : super("Error", message, 400);
+}
+
+class UnauthorizedException extends CustomException {
+  UnauthorizedException({message}) : super("Unauthorized", message, 401);
+}
+
+class NotFoundException extends CustomException {
+  NotFoundException({message}) : super("Not found", message, 404);
+}
+
+class GoneException extends CustomException {
+  GoneException({message}) : super("Invalid Request", message, 410);
+}
+
+class InternalServerException extends CustomException {
+  InternalServerException({message}) : super("Internal Server Error", message, 500);
+}
+
+class UnspecifiedException extends CustomException {
+  UnspecifiedException({message, statusCode}) : super("Unspecified error", message, statusCode);
 }

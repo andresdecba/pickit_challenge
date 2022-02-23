@@ -6,7 +6,6 @@ import 'dart:async';
 import 'package:pickit_challenge/network/custom_exception.dart';
 
 class DataProvider {
-
   /// build URL
   static const String _url = 'pickit-challenge-default-rtdb.firebaseio.com';
 
@@ -18,10 +17,10 @@ class DataProvider {
     //
     try {
       final uri = Uri.https(_url, _path);
-      final response = await http.get(uri);
+      var response = await http.get(uri);
       return _response(response);
     } on SocketException {
-      throw UnspecifiedException;
+      throw UnspecifiedException(message: 'no hay internet');
     }
   }
 
@@ -30,15 +29,12 @@ class DataProvider {
   ////////////////////////////////////////////
 
   Future putApi(String client, String path) async {
-
     try {
-
       final uri = Uri.https(_url, 'clientes/$path.json');
       final response = await http.put(uri, body: client);
-
     } on SocketException {
       throw UnspecifiedException;
-    }   
+    }
   }
 
   ////////////////////////////////////////////
@@ -46,33 +42,34 @@ class DataProvider {
   ////////////////////////////////////////////
 
   Future deleteApi(String path) async {
-
     try {
-
       final uri = Uri.https(_url, 'clientes/$path.json');
       final response = await http.delete(uri);
     } on SocketException {
       throw UnspecifiedException;
-    }    
+    }
   }
 
   ////////////////////////////////////////////
   /// EXCEPTIONS ///
   ////////////////////////////////////////////
 
-  dynamic _response (http.Response response) {
-
+  dynamic _response(http.Response response) {
     switch (response.statusCode) {
       case 200:
         return jsonDecode(response.body);
       case 400:
-        throw BadRequestException();
+        throw FetchDataException(message: 'Falla durante la comunicación');
+      case 401:
+        throw UnauthorizedException(message: 'No está autorizado');
       case 404:
-        throw UnregisteredException();
+        throw NotFoundException(message: 'No se pudo encontrar la información');
+      case 410:
+        throw GoneException(message: 'La información ya no existe');
       case 500:
-        throw InternalException();
+        throw InternalServerException(message: 'Error del servidor');
       default:
-        throw UnspecifiedException('Error Communication, StatusCode: ${response.statusCode}');
+        throw UnspecifiedException(message: 'Error desconocido', statusCode: response.statusCode);
     }
   }
 }

@@ -29,8 +29,6 @@ class _CreateNewClientScreenState extends State<CreateNewClientScreen> {
         onPressed: () async {
           // 1. enviamos el nvo cliente al backend
           await appState.createNewClient();
-
-          // 2. destruimos esta pagina y navegamos a la pantalla del cliente detalles
           Navigator.pushNamedAndRemoveUntil(context, 'ClientDetailsScreen', (route) => false);
         },
       ),
@@ -42,7 +40,6 @@ class _CreateNewClientScreenState extends State<CreateNewClientScreen> {
 
       /// body
       body: ListView(
-
         padding: const EdgeInsets.all(kPadding),
         children: [
           Form(
@@ -95,9 +92,33 @@ class _CreateNewClientScreenState extends State<CreateNewClientScreen> {
   }
 }
 
+// class _Cargando extends StatelessWidget {
+//   const _Cargando({
+//     Key? key,
+//   }) : super(key: key);
 
-// extension StringExtension on String {
-//     String capitalize() {
-//       return "${this[0].toUpperCase()}${this.substring(1)}";
-//     }
+//   @override
+//   Widget build(BuildContext context) {
+//     return Consumer<AppState>(builder: (context, state, _) {
+//       switch (state.dataState) {
+//         case Status.loading:
+//           return const Center(child: CircularProgressIndicator());
+
+//         case Status.completed:
+//           // 2. destruimos esta pagina y navegamos a la pantalla del cliente detalles
+//           Navigator.pushNamedAndRemoveUntil(context, 'ClientDetailsScreen', (route) => false);
+//           return Container();
+
+//         case Status.error:
+//           return CartelitoError(
+//             prefix: state.exception!.prefix!,
+//             message: state.exception!.message!,
+//             codigo: state.exception!.code!,
+//           );
+
+//         default:
+//           return const Center(child: CircularProgressIndicator());
+//       }
+//     });
+//   }
 // }
